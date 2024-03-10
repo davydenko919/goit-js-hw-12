@@ -1,0 +1,49 @@
+/**
+  |============================
+  | include css partials with
+  | default @import url()
+  |============================
+*/
+@import url('./reset.css');
+@import "izitoast/dist/css/iziToast.min.css";
+@import 'simplelightbox/dist/simple-lightbox.min.css';
+
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #242424;
+  background-color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+
+
+.gallery-item{
+  width: 260px;
+  border: 1px solid #000000;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+
+.card-place{
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  justify-content: center
+}
+
+.form{
+ display: flex;
+ justify-content: center;
+ gap: 12px;
+}

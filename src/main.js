@@ -43,35 +43,6 @@ const lightbox = new SimpleLightbox('.gallery-link', {
 
 let page = 1;
 
-
-// loadButton.addEventListener('click', async () => {
-//   page++; 
-//   if (page > totalHits) {
-//     loadButton.style.display = 'none'; 
-//     iziToast.show({
-//       message: 'We\'re sorry, but you\'ve reached the end of search results.',
-//   });
-//     return
-//   }
-//   try {
-//       const response = await getImages(lastSerch, page);
-
-//       if (response.hits.length > 0) {
-//           const galleryMarkup = createGallery(response);
-//           cardPlace.insertAdjacentHTML('beforeend', galleryMarkup);
-//           lightbox.refresh(); 
-//       } else {
-//           iziToast.show({
-//               message: 'We\'re sorry, but you\'ve reached the end of search results.',
-//           });
-//           document.querySelector('.load-btn').style.display = 'none'; 
-//       }
-//   } catch (error) {
-//       console.error('Error:', error);
-//   }
-// });
-
-
 loadButton.addEventListener('click', async () => {
   page++; 
   if (page > totalHits) {
@@ -79,7 +50,7 @@ loadButton.addEventListener('click', async () => {
       iziToast.show({
           message: 'We\'re sorry, but you\'ve reached the end of search results.',
       });
-      return
+      return;
   }
   try {
       const response = await getImages(lastSerch, page);

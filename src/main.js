@@ -68,9 +68,6 @@ async function loadBtnFct(event) {
   loader.style.display = 'flex';
   page++;
 
-  
-  
-
   if (page >= totalPages) {
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",

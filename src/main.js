@@ -16,6 +16,7 @@ loadButton.style.display = 'none';
 let limit = 15;
 let page = 1;
 let totalImg;
+let totalPages;
 
 form.addEventListener('submit', submitFormFct);
 loadButton.addEventListener('click', loadBtnFct);
@@ -33,36 +34,45 @@ async function submitFormFct(event) {
   getImages(QUERY)
     .then(arr => {
       totalImg = arr.totalHits;
-      console.log(totalImg);
+      totalPages = Math.floor(totalImg / limit);
+      
+    //   console.log(totalImg);
       if (totalImg < limit) {
         iziToast.error({
             message:
               'Sorry, there are no images matching your search query. Please try again!',
           });
+          document.querySelector('.load-btn').style.display = 'none';
           loader.style.display = 'none';
       } else {
         cardPlace.innerHTML = createGallery(arr);
         lightbox.refresh();
         form.reset();
         loadButton.style.display = 'block';
+        if (totalPages === 1) {
+            document.querySelector('.load-btn').style.display = 'none';
+          }
         loader.style.display = 'none';
       }
     })
     .catch(error => {
-      console.error('Error:', error);
+        iziToast.error({
+          message:
+            `${error}`,
+        });
     });
 }
 
 async function loadBtnFct(event) {
   event.preventDefault();
+  loader.style.display = 'flex';
   page++;
   //   const imagesAmount = getImages(lastSerch).totalHits;
   //   console.log(imagesAmount);
-  const totalPages = Math.floor(totalImg / limit);
-  console.log(totalPages);
+  
+//   console.log(totalPages);
 
   if (page >= totalPages) {
-    loadButton.style.display = 'none';
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
     });
@@ -89,7 +99,10 @@ async function loadBtnFct(event) {
       loader.style.display = 'none';
     }
   } catch (error) {
-    console.error('Error:', error);
+    iziToast.error({
+        message:
+          `${error}`,})
+
   }
 }
 

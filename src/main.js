@@ -58,13 +58,13 @@ async function loadBtnFct(event) {
   const totalPages = Math.floor(totalImg / limit);
   console.log(totalPages);
 
-  if (page > totalPages) {
+  if (page >= totalPages) {
     loadButton.style.display = 'none';
     iziToast.show({
       message: "We're sorry, but you've reached the end of search results.",
     });
     document.querySelector('.load-btn').style.display = 'none';
-    return;
+    // return;
   }
   try {
     const response = await getImages(lastSerch, page);
@@ -86,6 +86,11 @@ async function loadBtnFct(event) {
     console.error('Error:', error);
   }
 }
+
+
+
+
+
 
 const lightbox = new SimpleLightbox('.gallery-link', {
   captionsData: 'alt',

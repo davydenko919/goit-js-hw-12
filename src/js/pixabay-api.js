@@ -11,7 +11,7 @@ export async function getImages(QUERY, page = 1) {
   try {
     const response = await axios.get(LINK);
 
-    if (response.data.hits.length === 0) {
+    if (response.data.hits.length > 15) {
       if (page === 1) {
         iziToast.error({
           message:

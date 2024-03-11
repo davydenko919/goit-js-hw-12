@@ -29,23 +29,23 @@ async function submitFormFct(event) {
   const QUERY = input.value.trim().toLowerCase().replace(/ /g, '+');
   lastSerch = QUERY;
 
-  console.log(getImages(QUERY));
+  // console.log(getImages(QUERY));
 
   getImages(QUERY)
     .then(arr => {
       totalImg = arr.totalHits;
-      totalPages = Math.floor(totalImg / 15);
-      console.log(totalImg);
-      console.log(totalPages);
+      totalPages = Math.ceil(totalImg / 15);
+      // console.log(totalImg);
+      // console.log(totalPages);
 
-      if (totalImg < 15) {
+      if (totalImg === 0) {
         iziToast.error({
           message:
             'Sorry, there are no images matching your search query. Please try again!',
         });
         document.querySelector('.load-btn').style.display = 'none';
         loader.style.display = 'none';
-      } else if (totalImg >= 15 && totalImg < 30) {
+      } else if (totalImg <= 15) {
         cardPlace.innerHTML = createGallery(arr);
         lightbox.refresh();
         form.reset();
@@ -76,26 +76,15 @@ async function loadBtnFct(event) {
     });
     document.querySelector('.load-btn').style.display = 'none';
     loader.style.display = 'none';
-    // return;
   }
   try {
     const response = await getImages(lastSerch, page);
-
-    // if (response.hits.length > 0) {
     const galleryMarkup = createGallery(response);
     cardPlace.insertAdjacentHTML('beforeend', galleryMarkup);
     lightbox.refresh();
     smoothScrollBy(
-      cardPlace.firstElementChild.getBoundingClientRect().height * 2
-    );
+      cardPlace.firstElementChild.getBoundingClientRect().height * 2);
     loader.style.display = 'none';
-    // } else {
-    //   iziToast.show({
-    //     message: "We're sorry, but you've reached the end of search results.",
-    //   });
-    //   document.querySelector('.load-btn').style.display = 'none';
-    //   loader.style.display = 'none';
-    // }
   } catch (error) {
     iziToast.error({
       message: `${error}`,
@@ -113,3 +102,50 @@ function smoothScrollBy(distance) {
     behavior: 'smooth',
   });
 }
+
+
+// в коді нижче колекція складається тільки з 15 позицій, якщо менше, то вона не працює, (просто мені здалось, що це така умова була)
+
+// async function submitFormFct(event) {
+//   event.preventDefault();
+//   loader.style.display = 'flex';
+//   page = 1;
+//   cardPlace.innerHTML = '';
+//   const QUERY = input.value.trim().toLowerCase().replace(/ /g, '+');
+//   lastSerch = QUERY;
+
+//   console.log(getImages(QUERY));
+
+//   getImages(QUERY)
+//     .then(arr => {
+//       totalImg = arr.totalHits;
+//       totalPages = Math.floor(totalImg / 15);
+//       console.log(totalImg);
+//       console.log(totalPages);
+
+//       if (totalImg < 15) {
+//         iziToast.error({
+//           message:
+//             'Sorry, there are no images matching your search query. Please try again!',
+//         });
+//         document.querySelector('.load-btn').style.display = 'none';
+//         loader.style.display = 'none';
+//       } else if (totalImg >= 15 && totalImg < 30) {
+//         cardPlace.innerHTML = createGallery(arr);
+//         lightbox.refresh();
+//         form.reset();
+//         document.querySelector('.load-btn').style.display = 'none';
+//       } else {
+//         cardPlace.innerHTML = createGallery(arr);
+//         lightbox.refresh();
+//         form.reset();
+//         document.querySelector('.load-btn').style.display = 'block';
+//       }
+//       loader.style.display = 'none';
+//     })
+//     .catch(error => {
+//       iziToast.error({
+//         message: `${error}`,
+//       });
+//     });
+// }

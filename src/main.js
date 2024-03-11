@@ -22,6 +22,7 @@ loadButton.addEventListener('click', loadBtnFct);
 
 async function submitFormFct(event) {
   event.preventDefault();
+  loader.style.display = 'flex';
   page = 1;
   cardPlace.innerHTML = '';
   const QUERY = input.value.trim().toLowerCase().replace(/ /g, '+');
@@ -38,11 +39,13 @@ async function submitFormFct(event) {
             message:
               'Sorry, there are no images matching your search query. Please try again!',
           });
+          loader.style.display = 'none';
       } else {
         cardPlace.innerHTML = createGallery(arr);
         lightbox.refresh();
         form.reset();
         loadButton.style.display = 'block';
+        loader.style.display = 'none';
       }
     })
     .catch(error => {
@@ -64,6 +67,7 @@ async function loadBtnFct(event) {
       message: "We're sorry, but you've reached the end of search results.",
     });
     document.querySelector('.load-btn').style.display = 'none';
+    loader.style.display = 'none';
     // return;
   }
   try {
@@ -76,11 +80,13 @@ async function loadBtnFct(event) {
       smoothScrollBy(
         cardPlace.firstElementChild.getBoundingClientRect().height * 2
       );
+      loader.style.display = 'none';
     } else {
       iziToast.show({
         message: "We're sorry, but you've reached the end of search results.",
       });
       document.querySelector('.load-btn').style.display = 'none';
+      loader.style.display = 'none';
     }
   } catch (error) {
     console.error('Error:', error);

@@ -3,10 +3,10 @@ import axios from 'axios';
 
 const KEY = `42787384-4c627c93f7dff570902230658`;
 const BASE_URI = `https://pixabay.com/api/`;
-// &page=${page}
 
-export async function getImages(QUERY, page) {
-  const LINK = `${BASE_URI}?key=${KEY}&q=${QUERY}&image_type=photo&per_page=15`;
+
+export async function getImages(QUERY, page = 1) {
+  const LINK = `${BASE_URI}?key=${KEY}&q=${QUERY}&image_type=photo&per_page=15&page=${page}`;
   console.log(LINK)
   try {
     const response = await axios.get(LINK);

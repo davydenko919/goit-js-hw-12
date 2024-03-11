@@ -7,6 +7,9 @@ const cardPlace = document.querySelector('.card-place');
 const form = document.querySelector('.form');
 const input = form.querySelector('.input');
 const loadButton = document.querySelector('.load-btn');
+const loader = document.querySelector('.loader-div');
+loader.style.display = 'none';
+
 let lastSerch;
 loadButton.style.display = 'none';
 let limit = 15;

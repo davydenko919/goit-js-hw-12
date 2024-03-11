@@ -35,7 +35,7 @@ async function submitFormFct(event) {
     .then(arr => {
       totalImg = arr.totalHits;
       totalPages = Math.floor(totalImg / limit);
-      
+    //   console.log(totalPages);
     //   console.log(totalImg);
       if (totalImg < limit) {
         iziToast.error({
@@ -67,10 +67,9 @@ async function loadBtnFct(event) {
   event.preventDefault();
   loader.style.display = 'flex';
   page++;
-  //   const imagesAmount = getImages(lastSerch).totalHits;
-  //   console.log(imagesAmount);
+
   
-//   console.log(totalPages);
+  
 
   if (page >= totalPages) {
     iziToast.show({
